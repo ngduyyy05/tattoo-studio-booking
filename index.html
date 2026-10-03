@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Inkline Studio - website gioi thieu portfolio va quan ly dat lich cho tattoo studio."
+    />
+    <title>Inkline Studio | Tattoo Booking</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23110f0f'/%3E%3Cpath d='M18 44c8-18 17-25 28-27-3 12-10 21-27 28l-1-1z' fill='%23b7312c'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%23d7b56d'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <a class="brand" href="#home" aria-label="Ve trang chu">
+        <span class="brand-mark">I</span>
+        <span>
+          <strong>Inkline Studio</strong>
+          <small>Portfolio & Booking</small>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Mo menu" aria-expanded="false">Menu</button>
+      <nav class="main-nav" aria-label="Dieu huong chinh">
+        <a href="#artists">Artists</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Dich vu</a>
+        <a href="#booking">Booking</a>
+        <a href="#blog">Blog</a>
+        <a href="#admin">Admin</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <img class="hero-image" src="assets/tattoo-studio-hero.png" alt="Khong gian tattoo studio hien dai" />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Tattoo Studio 1..n Artist</p>
+          <h1>Dat lich xam theo artist, phong cach va thoi gian mong muon.</h1>
+          <p>
+            Website demo cho studio tattoo: gioi thieu thuong hieu, loc portfolio,
+            gui yeu cau booking va quan ly noi dung trong mot giao dien thong nhat.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#booking">Dat lich</a>
+            <a class="button ghost" href="#portfolio">Xem portfolio</a>
+          </div>
+        </div>
+        <div class="hero-stats" aria-label="Thong ke studio">
+          <span><strong id="statArtists">0</strong> Artists</span>
+          <span><strong id="statPortfolio">0</strong> Tac pham</span>
+          <span><strong id="statBookings">0</strong> Booking demo</span>
+        </div>
+      </section>
+
+      <section class="section intro" id="about">
+        <div>
+          <p class="eyebrow">About Studio</p>
+          <h2>Mot he thong linh hoat cho studio mot artist hoac nhieu artist.</h2>
+        </div>
+        <p>
+          Neu studio chi co mot artist dang hien thi, form booking tu dong an buoc chon
+          artist va gan lich cho artist do. Khi co nhieu artist, khach hang co the xem
+          ho so, phong cach chuyen mon va portfolio rieng truoc khi dat lich.
+        </p>
+      </section>
+
+      <section class="section" id="artists">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Artists</p>
+            <h2>Chon nguoi phu hop voi y tuong hinh xam.</h2>
+          </div>
+          <a class="text-link" href="#booking">Gui yeu cau booking</a>
+        </div>
+        <div class="artist-grid" id="artistGrid"></div>
+      </section>
+
+      <section class="section tonal" id="styles">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Tattoo Styles</p>
+            <h2>Phong cach noi bat</h2>
+          </div>
+        </div>
+        <div class="style-list" id="styleList"></div>
+      </section>
+
+      <section class="section" id="portfolio">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Portfolio</p>
+            <h2>Thu vien tac pham co bo loc.</h2>
+          </div>
+          <div class="filter-row">
+            <select id="portfolioArtist" aria-label="Loc portfolio theo artist"></select>
+            <select id="portfolioStyle" aria-label="Loc portfolio theo phong cach"></select>
+          </div>
+        </div>
+        <div class="portfolio-grid" id="portfolioGrid"></div>
+      </section>
+
+      <section class="section split" id="services">
+        <div>
+          <p class="eyebrow">Services</p>
+          <h2>Dich vu va moc gia tham khao.</h2>
+          <p>
+            Gia cuoi cung phu thuoc vao kich thuoc, vi tri, do chi tiet va thoi gian thuc hien.
+            Studio se xac nhan lai truoc khi chot lich.
+          </p>
+        </div>
+        <div class="service-list" id="serviceList"></div>
+      </section>
+
+      <section class="section booking-section" id="booking">
+        <div class="booking-copy">
+          <p class="eyebrow">Booking</p>
+          <h2>Gui yeu cau dat lich</h2>
+          <p>
+            Dien thong tin y tuong, ngay gio mong muon va file tham khao. Yeu cau moi
+            se o trang thai Pending de admin xac nhan.
+          </p>
+          <div class="flow">
+            <span>Xem phong cach</span>
+            <span>Xem artist</span>
+            <span>Nhap yeu cau</span>
+            <span>Gui booking</span>
+          </div>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <div class="form-grid">
+            <label>
+              Ho ten
+              <input name="customerName" required placeholder="Nguyen Van A" />
+            </label>
+            <label>
+              So dien thoai
+              <input name="phone" required placeholder="090..." />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" placeholder="you@example.com" />
+            </label>
+            <label id="artistField">
+              Artist
+              <select name="artistId" id="bookingArtist"></select>
+            </label>
+            <label>
+              Dich vu
+              <select name="serviceId" id="bookingService"></select>
+            </label>
+            <label>
+              Ngay mong muon
+              <input name="date" type="date" required />
+            </label>
+            <label>
+              Gio mong muon
+              <input name="time" type="time" required />
+            </label>
+            <label>
+              Vi tri xam
+              <input name="placement" required placeholder="Co tay, vai, lung..." />
+            </label>
+            <label>
+              Kich thuoc
+              <input name="size" placeholder="5cm, half sleeve..." />
+            </label>
+            <label>
+              Link hinh tham khao
+              <input name="reference" placeholder="https://..." />
+            </label>
+          </div>
+          <label>
+            Ghi chu y tuong
+            <textarea name="notes" required placeholder="Mo ta phong cach, mau sac, y nghia mong muon..."></textarea>
+          </label>
+          <button class="button primary full" type="submit">Gui booking</button>
+          <p class="form-message" id="bookingMessage" role="status"></p>
+        </form>
+      </section>
+
+      <section class="section" id="blog">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Blog</p>
+            <h2>Kien thuc tattoo va cham soc sau xam.</h2>
+          </div>
+        </div>
+        <div class="blog-grid" id="blogGrid"></div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Inkline Studio</h2>
+          <p>42 Nguyen Hue, Quan 1, TP.HCM</p>
+          <p>Hotline: 0901 222 333 · Email: hello@inkline.vn</p>
+        </div>
+        <div class="policy">
+          <strong>Chinh sach booking</strong>
+          <span>Studio phan hoi trong 24 gio. Lich chi duoc xac nhan sau khi artist kiem tra y tuong va khung gio.</span>
+        </div>
+      </section>
+
+      <section class="section admin-section" id="admin">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Admin</p>
+            <h2>Quan tri studio demo</h2>
+          </div>
+          <button class="button ghost small" type="button" id="resetDemo">Reset du lieu</button>
+        </div>
+
+        <form class="login-panel" id="loginForm">
+          <p>Dang nhap mau: <strong>admin</strong> / <strong>admin123</strong></p>
+          <label>
+            Tai khoan
+            <input name="username" required />
+          </label>
+          <label>
+            Mat khau
+            <input name="password" type="password" required />
+          </label>
+          <button class="button primary" type="submit">Dang nhap</button>
+          <p class="form-message" id="loginMessage" role="status"></p>
+        </form>
+
+        <div class="admin-panel hidden" id="adminPanel">
+          <div class="admin-toolbar">
+            <div class="metric"><strong id="metricPending">0</strong><span>Pending</span></div>
+            <div class="metric"><strong id="metricConfirmed">0</strong><span>Confirmed</span></div>
+            <div class="metric"><strong id="metricCompleted">0</strong><span>Completed</span></div>
+            <button class="button ghost small" type="button" id="logoutBtn">Dang xuat</button>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Quan tri">
+            <button class="tab active" type="button" data-tab="bookings">Bookings</button>
+            <button class="tab" type="button" data-tab="artistsAdmin">Artists</button>
+            <button class="tab" type="button" data-tab="servicesAdmin">Services</button>
+            <button class="tab" type="button" data-tab="blogAdmin">Blog</button>
+            <button class="tab" type="button" data-tab="settingsAdmin">Settings</button>
+          </div>
+
+          <div class="tab-panel active" id="bookings">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Khach</th>
+                    <th>Artist</th>
+                    <th>Dich vu</th>
+                    <th>Ngay gio</th>
+                    <th>Trang thai</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingRows"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="artistsAdmin">
+            <form class="inline-form" id="artistForm">
+              <input name="name" required placeholder="Ten artist" />
+              <input name="specialty" required placeholder="Chuyen mon" />
+              <input name="years" type="number" min="0" placeholder="Nam KN" />
+              <button class="button primary small" type="submit">Them artist</button>
+            </form>
+            <div class="admin-list" id="artistAdminList"></div>
+          </div>
+
+          <div class="tab-panel" id="servicesAdmin">
+            <form class="inline-form" id="serviceForm">
+              <input name="name" required placeholder="Ten dich vu" />
+              <input name="price" required placeholder="Gia tham khao" />
+              <button class="button primary small" type="submit">Them dich vu</button>
+            </form>
+            <div class="admin-list" id="serviceAdminList"></div>
+          </div>
+
+          <div class="tab-panel" id="blogAdmin">
+            <form class="inline-form" id="blogForm">
+              <input name="title" required placeholder="Tieu de bai viet" />
+              <input name="tag" required placeholder="Tag" />
+              <button class="button primary small" type="submit">Them bai</button>
+            </form>
+            <div class="admin-list" id="blogAdminList"></div>
+          </div>
+
+          <div class="tab-panel" id="settingsAdmin">
+            <form class="settings-form" id="settingsForm">
+              <label>
+                Ten studio
+                <input name="name" />
+              </label>
+              <label>
+                Dia chi
+                <input name="address" />
+              </label>
+              <label>
+                Dien thoai
+                <input name="phone" />
+              </label>
+              <label>
+                Gio lam viec
+                <input name="hours" />
+              </label>
+              <button class="button primary small" type="submit">Luu settings</button>
+              <p class="form-message" id="settingsMessage" role="status"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="artist-dialog" id="artistDialog">
+      <button class="dialog-close" type="button" aria-label="Dong thong tin artist">×</button>
+      <div id="artistDialogContent"></div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
