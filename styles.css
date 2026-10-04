@@ -21,6 +21,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -164,13 +165,58 @@ p {
 }
 
 h1 {
-  max-width: 12ch;
+  max-width: 15ch;
   margin-bottom: 1rem;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(3rem, 8vw, 7rem);
   line-height: 0.95;
   font-weight: 700;
 }
+
+/* Shared content, editor and booking states */
+.wide { grid-column: 1 / -1; }
+.muted, small { color: var(--muted); }
+.pre-wrap { white-space: pre-wrap; overflow-wrap: anywhere; }
+.article-body { line-height: 1.9; }
+.row-actions, .admin-list-heading { display: flex; gap: .65rem; flex-wrap: wrap; align-items: center; }
+.row-actions { margin-block: 1rem; }
+.admin-list-heading { justify-content: space-between; margin-bottom: 1rem; }
+.admin-filters { margin-bottom: 1.4rem; align-items: end; }
+.admin-filters label { flex: 1 1 160px; }
+.empty-state { padding: 2rem; border: 1px dashed var(--line); color: var(--muted); grid-column: 1 / -1; }
+.booking-code { display: block; overflow-wrap: anywhere; font-family: monospace; }
+.booking-hint, .dialog-subtitle { margin-top: 2rem; }
+.form-message { overflow-wrap: anywhere; }
+.artist-photo { width: 100%; height: 240px; object-fit: cover; border-radius: var(--radius); margin-bottom: 1rem; }
+.portfolio-photo { width: 100%; height: 270px; object-fit: cover; }
+.art-placeholder { background: radial-gradient(ellipse at top right, #624237, #221b19 70%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; text-align: center; padding: 2rem; }
+.art-placeholder span { font: italic 1.7rem Georgia, serif; color: var(--accent-2); }
+.reference-image { width: 100%; max-height: 65vh; object-fit: contain; margin-block: 1rem; min-height: 120px; }
+.image-preview { width: 110px; height: 90px; object-fit: cover; border-radius: var(--radius); }
+.image-field { display: grid; gap: .65rem; padding: 1rem; border: 1px dashed var(--line); border-radius: var(--radius); }
+.image-field .button { justify-self: start; }
+.artist-works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.artist-works h3 { margin-top: .5rem; }
+.brand-mark { overflow: hidden; flex-shrink: 0; }
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+fieldset { min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
+legend { color: var(--muted); }
+.checks { display: flex; flex-wrap: wrap; gap: .8rem; }
+.checks label, .check-label { display: flex; align-items: center; gap: .5rem; }
+input[type="checkbox"] { width: 1.1rem; min-height: 1.1rem; accent-color: var(--accent); }
+button:disabled, select:disabled { opacity: .5; cursor: not-allowed; }
+:is(a, button, input, textarea, select, summary):focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+.style-pill .button { margin-top: 1rem; }
+.artist-dialog { max-height: calc(100dvh - 2rem); overflow-y: auto; }
+.artist-dialog h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); padding-right: 2rem; }
+.artist-dialog details { margin-top: 1rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+summary { cursor: pointer; }
+.section, .form-grid > *, .settings-form > * { min-width: 0; }
+footer { display: flex; justify-content: space-between; gap: 1rem; padding: 2rem clamp(1rem, 5vw, 4rem); color: var(--muted); border-top: 1px solid var(--line); }
+#toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); z-index: 100; width: max-content; max-width: calc(100% - 2rem); padding: .9rem 1.2rem; border-radius: var(--radius); background: #f7efe6; color: #221b19; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity .2s; }
+#toast.show { opacity: 1; }
+@media (max-width: 640px) { .artist-works { grid-template-columns: 1fr; } .hero-stats { width: 100%; } .admin-filters { align-items: stretch; } .admin-filters label { flex-basis: auto; } .brand strong { max-width: 220px; overflow: hidden; text-overflow: ellipsis; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } #toast { transition: none; } }
 
 h2 {
   margin-bottom: 0.8rem;
