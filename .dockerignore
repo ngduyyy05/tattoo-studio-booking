@@ -1,0 +1,8 @@
+node_modules
+.next
+artifacts
+data
+.git
+.env
+.env.*
+*.docx

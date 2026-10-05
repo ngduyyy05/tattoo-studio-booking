@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { slots, bookingError, today, validDate } from '../domain.mjs';
+import { slots, bookingError, today, validDate } from '../lib/domain.js';
 const now = new Date('2026-10-04T02:00:00Z');
 function fixture() { return { studio: { openTime:'10:00',closeTime:'13:00',slotStep:30,openDays:[0,2,3,4,5,6] },artists:[{id:'a',visible:true,workDays:[0,1,2,3,4,5,6],daysOff:[]}],services:[{id:'s',duration:60,visible:true}],bookings:[] }; }
 test('uses Vietnam date around UTC midnight', () => { assert.equal(today(new Date('2026-10-03T18:00:00Z')),'2026-10-04'); });
