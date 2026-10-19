@@ -47,7 +47,7 @@ try {
   await click('a[href="/booking?artist=artist-linh"]'); await wait('location.pathname === "/booking" && !!document.querySelector("#bookingArtist")');
   await wait('document.querySelector("#bookingArtist").value === "artist-linh"');
   await fill('#bookingService', 'small'); await fill('#bookingForm [name=date]', '2099-10-06'); await wait('document.querySelector("#bookingTime").options.length > 1');
-  for (const [name, value] of Object.entries({ customerName: 'Khách trình duyệt', phone: '0901234567', placement: 'Vai', notes: 'Bông hoa nét mảnh', time: '10:00' })) await fill(`#bookingForm [name=${name}]`, value);
+  for (const [name, value] of Object.entries({ customerName: 'Khách trình duyệt', phone: '0901234567', email: 'khach@example.com', placement: 'Vai', notes: 'Bông hoa nét mảnh', time: '10:00' })) await fill(`#bookingForm [name=${name}]`, value);
   await evaluate('document.querySelector("#bookingForm").requestSubmit()'); await wait('document.querySelector("#bookingMessage").textContent.includes("Mã lịch hẹn")');
   await go('/portfolio?style=japanese'); await wait('document.querySelector("#portfolioStyle").value === "japanese"');
   assert.equal(await evaluate('document.querySelectorAll("#portfolioGrid .portfolio-card").length'), 2);
@@ -60,7 +60,7 @@ try {
   await wait('document.querySelector("#dialogContent").textContent.includes("13:00") && !document.querySelector("#rescheduleForm")'); await click('.dialog-close'); await wait('!document.querySelector("#detailDialog").open');
   // CRUD dialogs, accented text and safe rendering of input that looks like HTML.
   await click('[data-tab="styles"]'); await click('[data-edit="styles"]'); await fill('#editorForm [name=name]', 'Phong cách <img src=x onerror=alert(1)>'); await fill('#editorForm [name=description]', 'Mô tả có dấu'); await evaluate('document.querySelector("#editorForm").requestSubmit()'); await wait('!document.querySelector("#detailDialog").open');
-  await click('[data-tab="portfolio"]'); await click('[data-edit="portfolio"][data-id="p1"]'); await fill('#editorForm [name=title]', 'Tác phẩm đã sửa');
+  await click('[data-tab="portfolio"]'); await click('[data-edit="portfolio"][data-id="p1"]'); await wait('!!document.querySelector("#editorForm [name=title]")'); await fill('#editorForm [name=title]', 'Tác phẩm đã sửa');
   const imagePath = path.join(temp, 'upload.png'); writeFileSync(imagePath, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a7KsAAAAASUVORK5CYII=', 'base64'));
   const dom = await command('DOM.getDocument'); const fileNode = await command('DOM.querySelector', { nodeId: dom.root.nodeId, selector: '#editorForm input[type=file]' }); await command('DOM.setFileInputFiles', { nodeId: fileNode.nodeId, files: [imagePath] });
   await wait('!!document.querySelector("#editorForm .image-preview")');
@@ -81,9 +81,20 @@ try {
 
   mkdirSync('artifacts', { recursive: true });
   await go('/'); await evaluate('window.scrollTo({top:0,behavior:"instant"})'); await pause(300);
+  const pages = ['/', '/about', '/artists', '/artists/artist-linh', '/styles', '/styles/fine-line', '/portfolio', '/services', '/booking', '/blog', '/blog/b1', '/contact', '/admin'];
+  for (const page of pages) {
+    await go(page);
+    assert.ok(await evaluate('document.body.textContent.length > 100'), `page has content: ${page}`);
+    assert.ok(await evaluate('!/[\uFFFD]|Ã.|Ä.|á»|áº/.test(document.body.textContent)'), `Vietnamese text is not corrupted: ${page}`);
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), `desktop layout must not overflow: ${page}`);
+  }
+  await go('/');
+  await evaluate('document.fonts.ready');
+  assert.ok(await evaluate('getComputedStyle(document.body).fontFamily.includes("Be Vietnam Pro")'), 'Vietnamese body font is applied');
+  assert.ok(await evaluate('getComputedStyle(document.querySelector("h1")).fontFamily.includes("Lora")'), 'Vietnamese heading font is applied');
   let shot = await command('Page.captureScreenshot', { format: 'png' }); writeFileSync('artifacts/desktop.png', Buffer.from(shot.data, 'base64'));
   await command('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
-  for (const page of ['/', '/booking', '/admin', '/artists/artist-linh']) { await go(page); assert.ok(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), `mobile layout must not overflow: ${page}`); }
+  for (const page of pages) { await go(page); assert.ok(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), `mobile layout must not overflow: ${page}`); }
   await go('/');
   await click('.nav-toggle'); assert.equal(await evaluate('document.querySelector(".nav-toggle").getAttribute("aria-expanded")'), 'true');
   await click('.main-nav a[href="/booking"]'); await wait('location.pathname === "/booking"'); assert.equal(await evaluate('document.querySelector(".nav-toggle").getAttribute("aria-expanded")'), 'false');

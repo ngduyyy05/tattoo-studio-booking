@@ -1,7 +1,7 @@
 import { loadPublic } from '@/lib/data';
 import BookingForm from '@/components/BookingForm';
 
-export const metadata = { title: 'Đặt lịch', description: 'Chọn artist, dịch vụ và khung giờ còn trống để gửi yêu cầu đặt lịch xăm.', alternates: { canonical: '/booking' } };
+export const metadata = { title: 'Đặt lịch', description: 'Chọn nghệ sĩ, dịch vụ và khung giờ còn trống để gửi yêu cầu đặt lịch xăm.', alternates: { canonical: '/booking' } };
 
 export default async function Booking({ searchParams }) {
   const q = await searchParams;
@@ -12,7 +12,7 @@ export default async function Booking({ searchParams }) {
       <div className="booking-copy">
         <p className="eyebrow">Bắt đầu câu chuyện</p>
         <h1>Hẹn gặp bạn tại studio.</h1>
-        <p>Chọn artist, dịch vụ và khung giờ còn trống. Studio sẽ liên hệ để xác nhận ý tưởng và lịch hẹn.</p>
+        <p>Chọn nghệ sĩ, dịch vụ và khung giờ còn trống. Studio sẽ liên hệ để xác nhận ý tưởng và lịch hẹn.</p>
         <div className="flow"><span>01 · Chọn nghệ sĩ</span><span>02 · Chọn giờ trống</span><span>03 · Nhận xác nhận</span></div>
         <p className="booking-hint">Giờ hẹn theo múi giờ Việt Nam (UTC+7).</p>
         <p>{d.studio.policy}</p>

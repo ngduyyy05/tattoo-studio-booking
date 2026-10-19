@@ -35,15 +35,16 @@ export function ArtistCard({ artist, styles }) {
 }
 
 export function PortfolioCard({ item, artists, styles }) {
+  const sample = item.image?.startsWith('/assets/portfolio-');
   return (
     <article className="portfolio-card">
       <Photo item={item} className="portfolio-photo" />
       <div className="content">
         <span className="tag">{styles.find(s => s.id === item.styleId)?.name}</span>
         <h3>{item.title}</h3>
-        <p>{artists.find(a => a.id === item.artistId)?.name} · {item.placement}</p>
+        <p>{sample ? 'Hình tham khảo' : artists.find(a => a.id === item.artistId)?.name} · {item.placement}</p>
         {item.description && <p className="pre-wrap muted">{item.description}</p>}
-        <Link className="button ghost small" href={`/booking?artist=${item.artistId}`}>Đặt lịch với artist này</Link>
+        <Link className="button ghost small" href={`/booking?artist=${item.artistId}`}>Đặt lịch với nghệ sĩ này</Link>
       </div>
     </article>
   );

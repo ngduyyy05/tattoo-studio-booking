@@ -16,6 +16,7 @@
   "dependencies": {
     "mssql": "^12.7.3",
     "next": "^16.3.8",
+    "nodemailer": "^10.1.7",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   }

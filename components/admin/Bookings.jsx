@@ -16,13 +16,13 @@ export default function BookingsTab({ data, setDialog }) {
       <div className="filter-row admin-filters">
         <label>Tìm khách / điện thoại / mã lịch<input id="bookingSearch" type="search" placeholder="Nhập để tìm…" value={q} onChange={e => setQ(e.target.value)} /></label>
         <label>Trạng thái<select id="bookingStatusFilter" value={status} onChange={e => setStatus(e.target.value)}><option value="">Tất cả trạng thái</option>{Object.entries(statuses).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></label>
-        <label>Artist<select id="bookingArtistFilter" value={artist} onChange={e => setArtist(e.target.value)}><option value="">Tất cả artist</option>{data.artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></label>
+        <label>Nghệ sĩ<select id="bookingArtistFilter" value={artist} onChange={e => setArtist(e.target.value)}><option value="">Tất cả nghệ sĩ</option>{data.artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></label>
         <label>Ngày hẹn<input id="bookingDateFilter" type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
         <button type="button" className="button ghost small" onClick={() => { setQ(''); setStatus(''); setArtist(''); setDate(''); }}>Xóa bộ lọc</button>
       </div>
       <div className="table-wrap">
         <table>
-          <thead><tr><th>Khách hàng</th><th>Artist / dịch vụ</th><th>Ngày hẹn</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+          <thead><tr><th>Khách hàng</th><th>Nghệ sĩ / dịch vụ</th><th>Ngày hẹn</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
           <tbody id="bookingRows">
             {list.length ? list.map(b => (
               <tr key={b.id}>
@@ -63,7 +63,7 @@ export function BookingDetail({ id, data, call, refresh, notify, act, setDialog 
         : <a className="text-link" href={b.reference} target="_blank" rel="noopener noreferrer">Mở hình tham khảo ↗</a>)}
       <div className="row-actions">
         {transitions[b.status].map(s => <button key={s} type="button" className={`button ${s !== 'Cancelled' ? 'primary' : 'ghost'} small`} data-status={s} onClick={() => changeStatus(s)}>{statuses[s]}</button>)}
-        {['Pending', 'Confirmed'].includes(b.status) && <button type="button" className="button ghost small" data-reschedule={b.id} onClick={() => setDialog({ type: 'reschedule', id: b.id })}>Đổi lịch / artist</button>}
+        {['Pending', 'Confirmed'].includes(b.status) && <button type="button" className="button ghost small" data-reschedule={b.id} onClick={() => setDialog({ type: 'reschedule', id: b.id })}>Đổi lịch / nghệ sĩ</button>}
       </div>
       <details>
         <summary>Lịch sử xử lý</summary>
@@ -96,7 +96,7 @@ export function RescheduleForm({ id, data, call, refresh, notify, setDialog }) {
       <h2 id="dialogTitle">Đổi lịch hẹn</h2>
       <form id="rescheduleForm" onSubmit={submit}>
         <div className="form-grid">
-          <label>Artist<select name="artistId" required value={form.artistId} onChange={e => set('artistId', e.target.value)}>{data.artists.filter(a => a.visible).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></label>
+          <label>Nghệ sĩ<select name="artistId" required value={form.artistId} onChange={e => set('artistId', e.target.value)}>{data.artists.filter(a => a.visible).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></label>
           <label>Dịch vụ<select name="serviceId" required value={form.serviceId} onChange={e => set('serviceId', e.target.value)}>{data.services.filter(s => s.visible).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
           <label>Ngày hẹn<input name="date" type="date" required min={today()} value={form.date} onChange={e => set('date', e.target.value)} /></label>
           <label>Giờ hẹn<select name="time" required disabled={times === null} value={form.time} onChange={e => set('time', e.target.value)}>

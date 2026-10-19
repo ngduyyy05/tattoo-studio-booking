@@ -24,17 +24,17 @@ export default async function Home() {
       <section className="section intro" id="about"><div><p className="eyebrow">Câu chuyện studio</p><h2>Nghệ thuật bắt đầu từ bạn.</h2></div><p>{s.about} <Link className="text-link" href="/about">Tìm hiểu thêm ↗</Link></p></section>
 
       <section className="section" id="artists">
-        <SectionHeading kicker="Đội ngũ nghệ sĩ" title="Tìm người kể câu chuyện của bạn."><Link className="text-link" href="/artists">Tất cả artist ↗</Link></SectionHeading>
+        <SectionHeading kicker="Đội ngũ nghệ sĩ" title="Tìm người kể câu chuyện của bạn."><Link className="text-link" href="/artists">Tất cả nghệ sĩ ↗</Link></SectionHeading>
         <div className="artist-grid">{d.artists.length ? d.artists.map(a => <ArtistCard key={a.id} artist={a} styles={d.styles} />) : <Empty>Studio đang cập nhật đội ngũ nghệ sĩ.</Empty>}</div>
       </section>
 
       <section className="section tonal" id="styles">
-        <SectionHeading kicker="Tattoo styles" title="Chọn một phong cách." />
+        <SectionHeading kicker="Phong cách xăm" title="Chọn một phong cách." />
         <div className="style-list">{d.styles.map(st => <article className="style-pill" key={st.id}><strong>{st.name}</strong><span>{st.description}</span><Link className="button ghost small" href={`/styles/${st.id}`}>Xem tác phẩm</Link></article>)}</div>
       </section>
 
       <section className="section" id="portfolio">
-        <SectionHeading kicker="Selected work" title="Dấu ấn trên làn da."><Link className="text-link" href="/portfolio">Toàn bộ portfolio ↗</Link></SectionHeading>
+        <SectionHeading kicker="Cảm hứng hình xăm" title="Dấu ấn trên làn da."><Link className="text-link" href="/portfolio">Xem tất cả tác phẩm ↗</Link></SectionHeading>
         <div className="portfolio-grid">{d.portfolio.slice(0, 6).map(p => <PortfolioCard key={p.id} item={p} artists={d.artists} styles={d.styles} />)}</div>
       </section>
 
@@ -44,7 +44,7 @@ export default async function Home() {
       </section>
 
       <section className="section" id="blog">
-        <SectionHeading kicker="Journal" title="Cảm hứng & câu chuyện."><Link className="text-link" href="/blog">Tất cả bài viết ↗</Link></SectionHeading>
+        <SectionHeading kicker="Góc chia sẻ" title="Cảm hứng & câu chuyện."><Link className="text-link" href="/blog">Tất cả bài viết ↗</Link></SectionHeading>
         <div className="blog-grid">{d.blog.slice(0, 3).map(p => <BlogCard key={p.id} post={p} />)}</div>
       </section>
 

@@ -23,7 +23,7 @@ export default async function ArtistDetail({ params }) {
     <>
       <section className="section intro">
         <div>
-          <p className="eyebrow">Tattoo artist</p>
+          <p className="eyebrow">Nghệ sĩ xăm</p>
           <h1>{artist.name}</h1>
           {artist.image && <img className="artist-photo" src={artist.image} alt={artist.name} />}
         </div>
@@ -32,12 +32,12 @@ export default async function ArtistDetail({ params }) {
           <div className="tag-row">{artist.styleIds.map(id => { const s = d.styles.find(x => x.id === id); return s && <Link className="tag" key={id} href={`/styles/${id}`}>{s.name}</Link>; })}</div>
           <p className="pre-wrap">{artist.bio}</p>
           <p>Ngày nhận lịch: {artist.workDays.filter(x => d.studio.openDays.includes(x)).map(x => dayNames[x]).join(', ')}</p>
-          <Link className="button primary" href={`/booking?artist=${artist.id}`}>Đặt lịch với artist này</Link>
+          <Link className="button primary" href={`/booking?artist=${artist.id}`}>Đặt lịch với nghệ sĩ này</Link>
         </div>
       </section>
       <section className="section">
-        <h2>Tác phẩm của {artist.name}</h2>
-        <div className="portfolio-grid">{works.length ? works.map(p => <PortfolioCard key={p.id} item={p} artists={d.artists} styles={d.styles} />) : <Empty>Artist đang cập nhật tác phẩm.</Empty>}</div>
+        <h2>Tác phẩm và hình tham khảo của {artist.name}</h2>
+        <div className="portfolio-grid">{works.length ? works.map(p => <PortfolioCard key={p.id} item={p} artists={d.artists} styles={d.styles} />) : <Empty>Nghệ sĩ đang cập nhật tác phẩm.</Empty>}</div>
       </section>
     </>
   );

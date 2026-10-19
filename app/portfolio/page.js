@@ -1,7 +1,7 @@
 import { loadPublic } from '@/lib/data';
 import PortfolioGallery from '@/components/PortfolioGallery';
 
-export const metadata = { title: 'Portfolio', description: 'Thư viện tác phẩm tattoo, lọc theo artist hoặc phong cách.', alternates: { canonical: '/portfolio' } };
+export const metadata = { title: 'Tác phẩm', description: 'Thư viện tác phẩm xăm, lọc theo nghệ sĩ hoặc phong cách.', alternates: { canonical: '/portfolio' } };
 
 export default async function Portfolio({ searchParams }) {
   const q = await searchParams;

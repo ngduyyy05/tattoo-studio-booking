@@ -11,7 +11,7 @@ const freePort = () => new Promise(resolve => { const s = createServer().listen(
 export async function startServer(env = {}) {
   if (!existsSync(path.join(root, '.next', 'BUILD_ID'))) throw new Error('Chưa có bản build. Chạy "npm run build" trước khi test.');
   const port = await freePort();
-  const child = spawn(process.execPath, [path.join(root, 'node_modules', 'next', 'dist', 'bin', 'next'), 'start', '-p', String(port), '-H', '127.0.0.1'], { cwd: root, env: { ...process.env, MSSQL_CONNECTION_STRING: process.env.TEST_MSSQL_CONNECTION_STRING || 'memory', ...env }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(process.execPath, [path.join(root, 'node_modules', 'next', 'dist', 'bin', 'next'), 'start', '-p', String(port), '-H', '127.0.0.1'], { cwd: root, env: { ...process.env, MSSQL_CONNECTION_STRING: process.env.TEST_MSSQL_CONNECTION_STRING || 'memory', SMTP_HOST: '', SMTP_FROM: '', SMTP_USER: '', SMTP_PASSWORD: '', ...env }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   let logs = '';
   child.stdout.on('data', c => logs += c);
   child.stderr.on('data', c => logs += c);

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ImageField from '../ImageField';
 import { dayNames } from './fields';
 
-export const names = { artists: 'Artist', styles: 'Phong cách', services: 'Dịch vụ', portfolio: 'Tác phẩm', blog: 'Bài viết' };
+export const names = { artists: 'Nghệ sĩ', styles: 'Phong cách', services: 'Dịch vụ', portfolio: 'Tác phẩm', blog: 'Bài viết' };
 const titleOf = x => x.name || x.title;
 const dayOptions = dayNames.map((name, id) => ({ id, name }));
 
@@ -67,11 +67,11 @@ export function Editor({ kind, id, data, call, refresh, notify, setDialog }) {
       <form id="editorForm" onSubmit={submit}>
         <div className="form-grid">
           {kind === 'artists' && <>
-            <Field name="name" label="Tên artist *" value={x.name} required />
+            <Field name="name" label="Tên nghệ sĩ *" value={x.name} required />
             <Field name="specialty" label="Chuyên môn *" value={x.specialty} required />
             <Field name="years" label="Số năm kinh nghiệm" value={x.years ?? 0} type="number" required min="0" max="80" />
             <Area name="bio" label="Giới thiệu" value={x.bio} />
-            <ImageField name="image" label="Ảnh artist" value={x.image} onError={setMessage} />
+            <ImageField name="image" label="Ảnh nghệ sĩ" value={x.image} onError={setMessage} />
             <Checks name="styleIds" label="Phong cách chuyên môn" list={data.styles} selected={x.styleIds || []} />
             <Checks name="workDays" label="Ngày làm việc" list={dayOptions} selected={x.workDays || [0, 1, 2, 3, 4, 5, 6]} />
             <Area name="daysOff" label="Ngày nghỉ riêng (YYYY-MM-DD, cách nhau bằng dấu phẩy)" value={(x.daysOff || []).join(', ')} />
@@ -88,7 +88,7 @@ export function Editor({ kind, id, data, call, refresh, notify, setDialog }) {
           </>}
           {kind === 'portfolio' && <>
             <Field name="title" label="Tên tác phẩm *" value={x.title} required />
-            <Select name="artistId" label="Artist *" list={data.artists} value={x.artistId} />
+            <Select name="artistId" label="Nghệ sĩ *" list={data.artists} value={x.artistId} />
             <Select name="styleId" label="Phong cách *" list={data.styles} value={x.styleId} />
             <Field name="placement" label="Vị trí xăm *" value={x.placement} required />
             <ImageField name="image" label="Ảnh tác phẩm" value={x.image} onError={setMessage} />

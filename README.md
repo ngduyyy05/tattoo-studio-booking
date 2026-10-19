@@ -16,6 +16,12 @@ npm.cmd run dev
 
 Mở **http://localhost:3000**.
 
+### Email cho khách đặt lịch
+
+Khách phải nhập email khi đặt lịch. Sau khi lưu yêu cầu thành công, ứng dụng gửi email tới địa chỉ đó với mã lịch, nghệ sĩ, dịch vụ, ngày giờ và thông tin liên hệ. Email ghi rõ lịch đang **chờ xác nhận**. Cấu hình tài khoản gửi trong `.env` bằng `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM` (xem `.env.example`). Với Gmail, dùng `smtp.gmail.com`, cổng `465` và App Password. Mật khẩu SMTP chỉ đặt trong `.env`, không nhập vào trang quản trị và không commit lên Git.
+
+Nếu chưa cấu hình SMTP hoặc gửi thất bại, lịch hẹn vẫn được lưu và trang đặt lịch báo rõ rằng email chưa được gửi. Cấu hình xong cần khởi động lại server.
+
 - **Có SQL Server** (Express/Developer cài trên máy, hoặc container): đặt `MSSQL_CONNECTION_STRING` trong `.env`, ví dụ
   `Server=localhost,1433;Database=InklineStudio;User Id=sa;Password=...;Encrypt=true;TrustServerCertificate=true`.
   Lần chạy đầu, ứng dụng tự tạo database (nếu tài khoản có quyền), tạo bảng theo `db/schema.sql` và nạp dữ liệu mẫu.
@@ -63,6 +69,8 @@ Mỗi trang có tiêu đề và mô tả riêng. Nội dung mới tạo trong qu
 ## Quản trị nội dung
 
 Artist, phong cách, dịch vụ, portfolio, blog và cấu hình studio: thêm/sửa/ẩn/xóa như trước. Không xóa artist/dịch vụ/phong cách đang được tham chiếu (chỉ ẩn). Ảnh: URL HTTP(S) hoặc tải PNG/JPEG/WebP tối đa 1 MB. Nội dung blog là văn bản thuần, không thực thi HTML.
+
+Sáu ảnh trong portfolio mẫu là **ảnh minh họa**, không phải tác phẩm của studio. Ảnh được lưu tại `public/assets/` để website không phụ thuộc vào máy chủ ảnh bên ngoài. Nguồn ảnh: [hoa nét mảnh](https://www.pexels.com/photo/close-up-shot-of-a-flower-and-tattoo-flower-7548023/), [vai blackwork](https://www.pexels.com/photo/man-with-black-tattoo-on-his-back-12878044/), [tay áo phong cách Nhật](https://www.pexels.com/photo/koi-full-sleeved-tattoo-2134085/), [trăng khuyết](https://www.pexels.com/photo/moon-tattoo-on-arm-8542224/), [ngực blackwork](https://www.pexels.com/photo/pensive-woman-with-intricate-chest-tattoo-36886374/), [rồng trên cánh tay](https://www.pexels.com/photo/dragon-tattoo-on-woman-arm-17567389/). Ảnh sử dụng theo [giấy phép Pexels](https://www.pexels.com/license/). Khi có ảnh thật, thay trong trang quản trị.
 
 ## Database (MSSQL)
 

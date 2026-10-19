@@ -1,7 +1,7 @@
 import { loadPublic } from '@/lib/data';
 import { SectionHeading, ArtistCard, Empty } from '@/components/ui';
 
-export const metadata = { title: 'Artists', description: 'Đội ngũ tattoo artist của studio, phong cách chuyên môn và portfolio riêng.', alternates: { canonical: '/artists' } };
+export const metadata = { title: 'Nghệ sĩ', description: 'Đội ngũ nghệ sĩ xăm của studio, phong cách chuyên môn và các tác phẩm riêng.', alternates: { canonical: '/artists' } };
 
 export default async function Artists() {
   const d = await loadPublic();

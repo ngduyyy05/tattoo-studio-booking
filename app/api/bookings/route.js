@@ -3,6 +3,7 @@ import { json, route, limit, readBody } from '@/lib/http';
 import { getRepo } from '@/lib/repo';
 import { bookingError } from '@/lib/domain';
 import { fail, text, url } from '@/lib/validate';
+import { sendBookingEmail } from '@/lib/booking-email';
 
 const fields = ['customerName', 'phone', 'email', 'artistId', 'serviceId', 'date', 'time', 'placement', 'size', 'notes'];
 
@@ -12,7 +13,8 @@ export const POST = route(async req => {
   const booking = Object.fromEntries(fields.map(k => [k, text(b[k])]));
   const reference = url(b.reference, true);
   // Availability is re-checked inside the write lock, so concurrent requests cannot overlap.
-  const created = await (await getRepo()).mutate(async (state, tx) => {
+  const repo = await getRepo();
+  const created = await repo.mutate(async (state, tx) => {
     const error = bookingError(state, booking);
     if (error) fail(error, 409);
     const now = new Date().toISOString();
@@ -20,5 +22,13 @@ export const POST = route(async req => {
     await tx.insertBooking(item);
     return item;
   });
-  return json({ id: created.id, status: created.status }, 201);
+  let emailStatus;
+  try {
+    const state = await repo.read();
+    emailStatus = await sendBookingEmail(created, state.studio, state.artists.find(a => a.id === created.artistId), state.services.find(s => s.id === created.serviceId));
+  } catch (error) {
+    console.error('Không gửi được email đặt lịch:', error);
+    emailStatus = 'failed';
+  }
+  return json({ id: created.id, status: created.status, emailStatus }, 201);
 });

@@ -25,6 +25,11 @@ services:
       MSSQL_CONNECTION_STRING: Server=db,1433;Database=InklineStudio;User Id=sa;Password=${MSSQL_SA_PASSWORD};Encrypt=true;TrustServerCertificate=true
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
       SITE_URL: ${SITE_URL:-http://localhost:3000}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-}
     ports:
       - "3000:3000"
 

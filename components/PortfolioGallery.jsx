@@ -13,10 +13,10 @@ export default function PortfolioGallery({ items, artists, styles, initialArtist
   }
   return (
     <>
-      <SectionHeading as="h1" kicker="Selected work" title="Dấu ấn trên làn da.">
+      <SectionHeading as="h1" kicker="Thư viện tác phẩm" title="Dấu ấn trên làn da.">
         <div className="filter-row">
-          <select id="portfolioArtist" aria-label="Lọc theo artist" value={artist} onChange={e => update(e.target.value, style)}>
-            <option value="">Tất cả artist</option>{artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+          <select id="portfolioArtist" aria-label="Lọc theo nghệ sĩ" value={artist} onChange={e => update(e.target.value, style)}>
+            <option value="">Tất cả nghệ sĩ</option>{artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
           </select>
           <select id="portfolioStyle" aria-label="Lọc theo phong cách" value={style} onChange={e => update(artist, e.target.value)}>
             <option value="">Tất cả phong cách</option>{styles.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}

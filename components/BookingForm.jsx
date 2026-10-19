@@ -20,14 +20,14 @@ export default function BookingForm({ artists, services, initialArtist, initialS
   async function loadSlots(f = form) {
     const id = ++request.current;
     setTimes(null);
-    if (closed) { setHint('Studio chưa có artist hoặc dịch vụ nhận lịch. Vui lòng liên hệ trực tiếp.'); return; }
+    if (closed) { setHint('Studio chưa có nghệ sĩ hoặc dịch vụ nhận lịch. Vui lòng liên hệ trực tiếp.'); return; }
     if (!f.date) { setHint(''); return; }
     try {
       const result = await api('availability?' + new URLSearchParams({ artistId: f.artistId, serviceId: f.serviceId, date: f.date }));
       if (id !== request.current) return;
       setTimes(result.times);
       if (!result.times.includes(f.time)) set('time', '');
-      setHint(result.times.length ? `Dịch vụ dự kiến ${services.find(s => s.id === f.serviceId)?.duration} phút. Giờ trống đã tính thời gian thực hiện.` : 'Ngày này đã kín lịch hoặc là ngày nghỉ. Hãy chọn ngày hoặc artist khác.');
+      setHint(result.times.length ? `Dịch vụ dự kiến ${services.find(s => s.id === f.serviceId)?.duration} phút. Giờ trống đã tính thời gian thực hiện.` : 'Ngày này đã kín lịch hoặc là ngày nghỉ. Hãy chọn ngày hoặc nghệ sĩ khác.');
     } catch (e) { if (id === request.current) { setTimes([]); setHint(e.message); } }
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +42,12 @@ export default function BookingForm({ artists, services, initialArtist, initialS
       const result = await api('bookings', 'POST', form);
       const next = { ...blank, artistId: form.artistId, serviceId: form.serviceId };
       setForm(next); setImageKey(k => k + 1);
-      setMessage(`Đã nhận yêu cầu. Mã lịch hẹn: ${result.id}. Trạng thái: chờ xác nhận. Studio sẽ liên hệ với bạn.`);
+      const emailNote = result.emailStatus === 'sent'
+        ? `Email thông tin đặt lịch đã được gửi tới ${form.email}.`
+        : result.emailStatus === 'not_configured'
+          ? 'Email tự động chưa được cấu hình. Studio sẽ liên hệ với bạn qua số điện thoại đã cung cấp.'
+          : 'Chưa gửi được email tự động. Studio sẽ liên hệ với bạn qua số điện thoại đã cung cấp.';
+      setMessage(`Đã nhận yêu cầu. Mã lịch hẹn: ${result.id}. Trạng thái: chờ xác nhận. ${emailNote}`);
     } catch (err) {
       setMessage(err.message);
       loadSlots();
@@ -57,8 +62,8 @@ export default function BookingForm({ artists, services, initialArtist, initialS
       <div className="form-grid">
         {input('customerName', 'Họ và tên *', 'text', { required: true, maxLength: 100, autoComplete: 'name' })}
         {input('phone', 'Số điện thoại *', 'tel', { required: true, autoComplete: 'tel', placeholder: '0901234567' })}
-        {input('email', 'Email', 'email', { autoComplete: 'email' })}
-        <label id="artistField" className={artists.length === 1 ? 'hidden' : ''}>Artist *
+        {input('email', 'Email nhận thông tin đặt lịch *', 'email', { required: true, autoComplete: 'email' })}
+        <label id="artistField" className={artists.length === 1 ? 'hidden' : ''}>Nghệ sĩ *
           <select name="artistId" id="bookingArtist" required value={form.artistId} onChange={e => set('artistId', e.target.value)}>{artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select>
         </label>
         <label>Dịch vụ *

@@ -23,8 +23,8 @@ export default async function StyleDetail({ params }) {
     <>
       <section className="section intro"><div><p className="eyebrow">Tattoo style</p><h1>{style.name}</h1></div><p>{style.description}</p></section>
       <section className="section">
-        <SectionHeading kicker="Artist theo phong cách" title={`Ai xăm ${style.name}?`} />
-        <div className="artist-grid">{artists.length ? artists.map(a => <ArtistCard key={a.id} artist={a} styles={d.styles} />) : <Empty>Chưa có artist cho phong cách này.</Empty>}</div>
+        <SectionHeading kicker="Nghệ sĩ theo phong cách" title={`Ai xăm ${style.name}?`} />
+        <div className="artist-grid">{artists.length ? artists.map(a => <ArtistCard key={a.id} artist={a} styles={d.styles} />) : <Empty>Chưa có nghệ sĩ cho phong cách này.</Empty>}</div>
       </section>
       <section className="section">
         <h2>Tác phẩm {style.name}</h2>
